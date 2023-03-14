@@ -92,6 +92,7 @@ GameObject:
   - component: {fileID: 6336167393573640739}
   - component: {fileID: 250280857873741198}
   - component: {fileID: 1791411894316978458}
+  - component: {fileID: -1930970040537729312}
   m_Layer: 5
   m_Name: ServerBtn
   m_TagString: Untagged
@@ -202,3 +203,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &-1930970040537729312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4095421638919367192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8502f447eea971442888d3e8e83fcceb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textBtn: {fileID: 9118148720301096242}
