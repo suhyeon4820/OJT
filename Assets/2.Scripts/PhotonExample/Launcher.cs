@@ -10,6 +10,8 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField] private byte maxPlayerPerRoom = 4;
     [SerializeField] GameObject controlPanel;
     [SerializeField] GameObject progressLabel;
+
+    bool isConnecting;
     private void Awake()
     {
         // 모든 연결된 플레이어들은 동일한 레벨을 자동적으로 로드
@@ -25,6 +27,8 @@ public class Launcher : MonoBehaviourPunCallbacks
     // Photon Cloud에 연결 되는 시작 지점
     public void Connect()
     {
+        isConnecting = true;
+
         progressLabel.SetActive(true);
         controlPanel.SetActive(false);
 
@@ -41,8 +45,11 @@ public class Launcher : MonoBehaviourPunCallbacks
     }
     public override void OnConnectedToMaster()
     {
-        Debug.Log("PUN Basics Tutorial/Launcher: OnConnectedToMaster() was called by PUN");
-        PhotonNetwork.JoinRandomRoom();
+        if(isConnecting)
+        {
+            Debug.Log("PUN Basics Tutorial/Launcher: OnConnectedToMaster() was called by PUN");
+            PhotonNetwork.JoinRandomRoom();
+        }
     }
 
     public override void OnDisconnected(DisconnectCause cause)
@@ -62,5 +69,6 @@ public class Launcher : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log("PUN Basics Tutorial/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.");
+        PhotonNetwork.LoadLevel("Room for 1");
     }
 }
