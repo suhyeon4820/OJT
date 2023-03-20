@@ -7,10 +7,16 @@ using UnityEngine.SceneManagement;
 public class PhotonGameManager : MonoBehaviourPunCallbacks
 {
     public static PhotonGameManager Instance;
+    public GameObject playerPrefab;
 
     private void Start()
     {
         Instance = this;
+
+        if(PhotonPlayerManager.LocalPlayerInstance == null)
+        {
+            PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f, 5f, 0f), Quaternion.identity, 0);
+        }
     }
     public override void OnLeftRoom()
     {

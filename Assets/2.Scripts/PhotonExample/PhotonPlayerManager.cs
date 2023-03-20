@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+
 public class PhotonPlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 {
-    
 
     [SerializeField] GameObject beams;
     public float health = 1f;
+    public static GameObject LocalPlayerInstance;
     bool isFiring;
 
     private void Awake()
@@ -16,6 +17,12 @@ public class PhotonPlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         {
             beams.SetActive(false);
         }
+
+        if(photonView.IsMine)
+        {
+            PhotonPlayerManager.LocalPlayerInstance = this.gameObject;
+        }
+        DontDestroyOnLoad(this.gameObject);
     }
     private void Start()
     {
@@ -28,6 +35,11 @@ public class PhotonPlayerManager : MonoBehaviourPunCallbacks, IPunObservable
                 cameraWork.OnStartFollowing();
             }
         }
+
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded += (scene, loadingMode) =>
+        {
+            this.CalledOnLevelWasLoaded(scene.buildIndex);
+        };
 
     }
 
@@ -110,6 +122,21 @@ public class PhotonPlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         {
             this.isFiring = (bool)stream.ReceiveNext();
             this.health = (float)stream.ReceiveNext();
+        }
+    }
+
+    void OnLevelWasLoaded(int level)
+    {
+        this.CalledOnLevelWasLoaded(level);
+    }
+
+
+    void CalledOnLevelWasLoaded(int level)
+    {
+        // check if we are outside the Arena and if it's the case, spawn around the center of the arena in a safe zone
+        if (!Physics.Raycast(transform.position, -Vector3.up, 5f))
+        {
+            transform.position = new Vector3(0f, 5f, 0f);
         }
     }
 }
