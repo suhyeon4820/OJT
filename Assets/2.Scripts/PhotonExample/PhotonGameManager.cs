@@ -6,6 +6,12 @@ using Photon.Realtime;
 using UnityEngine.SceneManagement;
 public class PhotonGameManager : MonoBehaviourPunCallbacks
 {
+    public static PhotonGameManager Instance;
+
+    private void Start()
+    {
+        Instance = this;
+    }
     public override void OnLeftRoom()
     {
         SceneManager.LoadScene(0);
