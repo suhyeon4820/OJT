@@ -45,11 +45,6 @@ public class PhotonPlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Update()
     {
-        if(photonView.IsMine)
-        {
-            ProcessInputs();
-        }
-        
         // activeInHierarchy : 스크립트를 적용한 오브젝트의 부모 오브젝트에 영향을 받음
         if ((beams!=null) &&(isFiring!=beams.activeInHierarchy))
         {
@@ -130,7 +125,7 @@ public class PhotonPlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         this.CalledOnLevelWasLoaded(level);
     }
 
-
+    // 꺼짐
     void CalledOnLevelWasLoaded(int level)
     {
         // check if we are outside the Arena and if it's the case, spawn around the center of the arena in a safe zone

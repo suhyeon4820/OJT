@@ -40,7 +40,7 @@ public class PlayerAnimatorManager : MonoBehaviourPun
 
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
-
+        Debug.Log(h + " : " + v);
         if(v<0)
         {
             v = 0;
